@@ -1,6 +1,5 @@
 import argparse
 from utils.csv import DEFAULT_DIR, DEFAULT_FILENAME, checkCSVHeaders, clearOutputDir, writeCSVHeaders, writeProperties
-from utils.model import Property
 
 def main():
     parser = argparse.ArgumentParser(description='Fetch and store property data from sources.')

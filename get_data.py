@@ -4,7 +4,7 @@ from utils.csv import DEFAULT_DIR, DEFAULT_FILENAME, checkCSVHeaders, clearOutpu
 def main():
     parser = argparse.ArgumentParser(description='Fetch and store property data from sources.')
     parser.add_argument('--clear', action='store_true', default=True, help='Clear the current database before fetching (default: True)')
-    parser.add_argument('--sources', nargs='+', default=['invista'], help='List of sources to fetch from (default: ["invista"])')
+    parser.add_argument('--sources', nargs='+', default=['invista', 'rodaimoveis'], help='List of sources to fetch from (default: ["invista"])')
     parser.add_argument('--output-dir', default=DEFAULT_DIR, help=f'Directory to store the output CSV (default: {DEFAULT_DIR})')
     parser.add_argument('--filename', default=DEFAULT_FILENAME, help=f'Filename for the output CSV (default: {DEFAULT_FILENAME})')
     args = parser.parse_args()
@@ -19,8 +19,13 @@ def main():
             return
     
     total_saved = 0
+    if 'rodaimoveis' in args.sources:
+        from sources.rodaimoveis import getProperties
+        for propertiesList in getProperties():
+            writeProperties(args.output_dir, args.filename, propertiesList)
+            total_saved += len(propertiesList)
     if 'invista' in args.sources:
-        from sources.invista.index import getProperties
+        from sources.invista import getProperties
         for propertiesList in getProperties():
             writeProperties(args.output_dir, args.filename, propertiesList)
             total_saved += len(propertiesList)

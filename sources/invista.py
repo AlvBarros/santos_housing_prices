@@ -53,15 +53,19 @@ def getPropertiesInPage(page: int) -> list[Property]:
     response = requests.post(url, data=form_data, headers=headers)
     json = response.json()
     for property in json['lista']:
-        properties.append(Property(
-            area=formatAreaAsNumber(property['areaprincipal']),
-            neighborhood=replaceSpacesWithUnderscores(replaceAccents(property['bairro'].lower())),
-            bedrooms=property['numeroquartos'],
-            living_rooms=property['numerosalas'],
-            bathrooms=property['numerobanhos'],
-            parking_spaces=property['numerovagas'],
-            property_type=replaceAccents(property['tipo'].lower()),
-            price=formatMoneyAsNumber(property['valor']),
-            source='invista'
-        ))
+        try:
+            properties.append(Property(
+                area=formatAreaAsNumber(property['areaprincipal']),
+                neighborhood=replaceSpacesWithUnderscores(replaceAccents(property['bairro'].lower())),
+                bedrooms=property['numeroquartos'],
+                living_rooms=property['numerosalas'],
+                bathrooms=property['numerobanhos'],
+                parking_spaces=property['numerovagas'],
+                property_type=replaceAccents(property['tipo'].lower()),
+                price=formatMoneyAsNumber(property['valor']),
+                source='invista'
+            ))
+            pass
+        except Exception:
+            continue
     return properties, json['quantidade']

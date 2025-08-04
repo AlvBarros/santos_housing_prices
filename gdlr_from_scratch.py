@@ -53,32 +53,44 @@ def gradient_descent_step(
 
 
 def gradient_descent(
-    X,                          # Input features
-    y,                          # Target variable
-    alpha=0.01,                 # Learning rate
-    steps=1000,                 # Number of iterations
+    X,                              # Input features
+    y,                              # Target variable
+    alpha=0.01,                     # Learning rate
+    steps=1000,                     # Number of iterations
     
-    condition_step_func=None,    # Optional function to call at each step
-    on_condition_step_func=None, # Function to call when condition_step_func returns true
+    printStep=False,                # Whether to print the cost at each step
+    condition_step_func=None,       # Optional function to call at each step
+    on_condition_step_func=None,    # Function to call when condition_step_func returns true
 ):
-    m = len(y) # Number of training examples
+    """
+    Perform gradient descent to find the best fitting line for linear regression.
+
+    Args:
+    X: Input features
+    y:  Target variable
+    alpha:  Learning rate
+    steps:  Number of iterations
+    printStep: Whether to print information for each step.
+    condition_step_func: Optional function to call at each step. Callback with step number as first parameter.
+    on_condition_step_func: Function to call when condition_step_func returns true. Callback with step, theta 0 and theta 1 as parameters.
+    """
+    if len(X) != len(y):
+        print("The length of x and y must be the same.")
+        return
+
+    m = len(y)
     theta0 = 0.0
     theta1 = 0.0
+    X_scaled, y_scaled, x_min, x_max, y_min, y_max = remove_outliers_minmax(X, y)
 
     for step in range(steps):
-        # Perform a gradient descent step
-        theta0, theta1 = gradient_descent_step(X, y, m, (theta0, theta1), alpha)
+        theta0, theta1 = gradient_descent_step(X_scaled, y_scaled, m, (theta0, theta1), alpha)
+        predictions = [hypothesis(theta0, theta1, xi) for xi in X_scaled]
 
-        # Calculate predictions
-        predictions = [hypothesis(theta0, theta1, xi) for xi in X]
+        if printStep:
+            cost = cost_function(y_scaled, predictions, m)
+            print(f"Step {step}: Cost = {cost}, Theta0 = {theta0}, Theta1 = {theta1}")
 
-        # Calculate cost
-        cost = cost_function(y, predictions, m)
-
-        # if step % 100 == 0:  # Print cost every 100 steps
-        print(f"Step {step}: Cost = {cost}, Theta0 = {theta0}, Theta1 = {theta1}")
-
-        # Call the condition step function if provided
         if condition_step_func is not None:
             if condition_step_func(step):
                 if on_condition_step_func is not None:
@@ -160,14 +172,15 @@ def main():
     DEFAULT_AMOUNT_LINES = 1
     DEFAULT_X = 'area'
     DEFAULT_Y = 'price'
+
     import argparse
     parser = argparse.ArgumentParser(description='Run gradient descent for linear regression.')
     parser.add_argument('--steps', type=int, default=DEFAULT_STEPS, help='Number of steps for gradient descent (default: {DEFAULT_STEPS})')
     parser.add_argument('--amount-lines', type=int, default=DEFAULT_AMOUNT_LINES, help='Number of lines to plot during gradient descent (default: {DEFAULT_AMOUNT_LINES})')
     parser.add_argument('--filename', help=f'Filename containing the data. Must be in CSV format. Required.')
-    parser.add_argument('--x', default='area', help=f'Column name for x values in the CSV file (default: {DEFAULT_X})')
-    parser.add_argument('--y', default='price', help=f'Column name for y values in the CSV file (default: {DEFAULT_Y})')
-    parser.add_argument('--alpha', default=0.3, help=f'Learning rate for gradient descent (default: {DEFAULT_LEARNING_RATE})')
+    parser.add_argument('--x', default=DEFAULT_X, help=f'Column name for x values in the CSV file (default: {DEFAULT_X})')
+    parser.add_argument('--y', default=DEFAULT_Y, help=f'Column name for y values in the CSV file (default: {DEFAULT_Y})')
+    parser.add_argument('--alpha', default=DEFAULT_LEARNING_RATE, help=f'Learning rate for gradient descent (default: {DEFAULT_LEARNING_RATE})')
     args = parser.parse_args()
 
     if not args.filename:
@@ -182,15 +195,7 @@ def main():
     X = data[args.x].tolist()
     y = data[args.y].tolist()
 
-    if len(X) != len(y):
-        print("The length of x and y must be the same.")
-        return
-    
-    X_scaled, y_scaled, x_min, x_max, y_min, y_max = remove_outliers_minmax(X, y)
-    print(f"Data after removing outliers and scaling: {len(X_scaled)} points")
-    print(f"x range: {x_min} to {x_max}, y range: {y_min} to {y_max}")
-
-    plot(X_scaled, y_scaled, steps=args.steps, amount_lines=args.amount_lines, alpha=args.alpha)
+    plot(X, y, steps=args.steps, amount_lines=args.amount_lines, alpha=args.alpha)
 
 if __name__ == '__main__':
     main()

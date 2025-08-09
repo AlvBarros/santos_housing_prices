@@ -1,14 +1,17 @@
 # Gradient Descent
 
-- Have some functuion J(O(0), O(1))
-- Want min J(O(0), O(1))
+- Have some function J(O(0), O(1))
+- Want minimum J(O(0), O(1))
 
 Outline:
 - Start with some O(0), O(1)
 - Keep changing O(0), O(1) to reduce J(O(0), O(1)) until we hopefully end up at a minimum
 
 
-## Gradient Descent applied to a Linear Regression cost function
+## Gradient Descent applied to a Linear Regression Cost Function
+
+> [Linear Regression?](./linear_regression.md)
+> [Cost Function?](./cost_function.md)
 
 ![Gradient Descent function](./images/gradient_descent.png)
 

@@ -8,7 +8,7 @@ To break it apart, it is 1/2 x where x is the mean of the squares of hθ(xi) - y
 
 This function is othwerise called the "**Squared error function**" or "**Mean squared error**". The mean is halved (1/2) as a convenience for the computation of the gradient descent, as the derivative term of the square function will cancel out the 1/2 term.
 
-> Squaring the errors do two things:
+> Squaring the errors does two things:
 > 
 > 1. Negative errors cancel out positive ones
 > 
@@ -24,7 +24,7 @@ This function is othwerise called the "**Squared error function**" or "**Mean sq
 
 Imagine you have a dataset of housing prices. The y column is the price, and x column the area of the house. If you plot it on a 2D graph, you can plot a straight line in order to make a prediction of how much a house will cost depending on the total area size. 
 
-![Plotted Hypothesis](./plotted_hypothesis.png)
+![Plotted Hypothesis](./images/plotted_hypothesis.png)
 
 - The X's are actual houses with y price and x area.
 - The hypothesis draws the prediction line.

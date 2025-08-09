@@ -10,7 +10,7 @@ Outline:
 
 ## Gradient Descent applied to a Linear Regression cost function
 
-![Gradient Descent function](./gradient_descent.png)
+![Gradient Descent function](./images/gradient_descent.png)
 
 > **Explanation**
 >
@@ -33,7 +33,7 @@ Outline:
 
 When specifically applied to the case of linear regression, a new form of the gradient descent equation can be derived. We can substitute our **actual cost function** and our **actual hypothesis function** and modify the equation to:
 
-![Gradient Descent For Linear Regression](./gradient_descent_for_linear_regression.png)
+![Gradient Descent For Linear Regression](./images/gradient_descent_for_linear_regression.png)
 
 > **Extra: "Batch" Gradient Descent**
 >

@@ -2,7 +2,7 @@
 
 We can measure the accuracy of our hypothesis by using a **cost function**. This takes an average difference (actually a fancier version of an average) of all the results of the hypothesis with inputs from x's and the actual output y's.
 
-![Cost Function](./cost_function.png)
+![Cost Function](./images/cost_function.png)
 
 To break it apart, it is 1/2 x where x is the mean of the squares of hθ(xi) - yi, or *the difference between the predicted value and the actual value*.
 

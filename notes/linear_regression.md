@@ -1,6 +1,6 @@
 # Linear Regression
 
-Linear regression attempst to model the relationship between two variables by fitting a linear equation to observer data.
+Linear regression attempts to model the relationship between two variables by fitting a linear equation to observer data.
 One variable is considered to be an **explanatory variable**, and the other to be a **dependent variable**.
 
 - **linear:** a relationship or equation that can be represented by a straight line on a graph

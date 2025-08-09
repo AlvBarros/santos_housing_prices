@@ -19,11 +19,12 @@ def main():
             return
     
     total_saved = 0
-    if 'rodaimoveis' in args.sources:
-        from sources.rodaimoveis import getProperties
-        for propertiesList in getProperties():
-            writeProperties(args.output_dir, args.filename, propertiesList)
-            total_saved += len(propertiesList)
+    # TODO Not fully implemented yet
+    #  if 'rodaimoveis' in args.sources:
+    #     from sources.rodaimoveis import getProperties
+    #     for propertiesList in getProperties():
+    #         writeProperties(args.output_dir, args.filename, propertiesList)
+    #         total_saved += len(propertiesList)
     if 'invista' in args.sources:
         from sources.invista import getProperties
         for propertiesList in getProperties():

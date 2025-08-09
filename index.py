@@ -60,7 +60,7 @@ def plot(
 def main():
     DEFAULT_STEPS = 3_000
     DEFAULT_AMOUNT_LINES = 1
-    DEFAULT_FILENAME = 'data/data.csv'
+    DEFAULT_FILENAME = 'data/properties.csv'
     DEFAULT_ALPHA = 0.3
     DEFAULT_X = 'area'
     DEFAULT_Y = 'price'
